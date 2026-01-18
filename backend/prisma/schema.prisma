@@ -1,0 +1,88 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Customer {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  email     String   @unique
+  name      String
+  phone     String
+  addresses Json[]
+  jobs      Job[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Washer {
+  id               String             @id @default(auto()) @map("_id") @db.ObjectId
+  email            String             @unique
+  name             String
+  phone            String
+  subscriptionTier SubscriptionTier   @default(free)
+  isAvailable      Boolean            @default(false)
+  currentLocation  Json?
+  rating           Float?
+  totalJobs        Int                @default(0)
+  jobs             Job[]
+  subscription     WasherSubscription?
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+}
+
+model Job {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  customer    Customer  @relation(fields: [customerId], references: [id])
+  customerId  String    @db.ObjectId
+  washer      Washer?   @relation(fields: [washerId], references: [id])
+  washerId    String?   @db.ObjectId
+  serviceType String
+  vehicle     Json
+  location    Json
+  status      JobStatus @default(requested)
+  price       Float
+  notes       String?
+  scheduledAt DateTime?
+  acceptedAt  DateTime?
+  startedAt   DateTime?
+  completedAt DateTime?
+  cancelledAt DateTime?
+  rating      Int?
+  review      String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model WasherSubscription {
+  id                   String           @id @default(auto()) @map("_id") @db.ObjectId
+  washer               Washer           @relation(fields: [washerId], references: [id])
+  washerId             String           @unique @db.ObjectId
+  tier                 SubscriptionTier @default(free)
+  stripeCustomerId     String?
+  stripeSubscriptionId String?
+  currentPeriodStart   DateTime?
+  currentPeriodEnd     DateTime?
+  cancelAtPeriodEnd    Boolean          @default(false)
+  createdAt            DateTime         @default(now())
+  updatedAt            DateTime         @updatedAt
+}
+
+enum SubscriptionTier {
+  free
+  pro
+  premium
+}
+
+enum JobStatus {
+  requested
+  accepted
+  en_route
+  arrived
+  in_progress
+  completed
+  cancelled
+}

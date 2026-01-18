@@ -1,0 +1,27 @@
+{
+  "name": "arplash",
+  "version": "1.0.0",
+  "private": true,
+  "description": "On-demand car wash platform",
+  "workspaces": [
+    "shared",
+    "backend",
+    "customer-fe",
+    "washer-fe"
+  ],
+  "scripts": {
+    "dev:backend": "npm run dev -w backend",
+    "dev:customer": "npm run dev -w customer-fe",
+    "dev:washer": "npm run dev -w washer-fe",
+    "build:shared": "npm run build -w shared",
+    "build:backend": "npm run build -w backend",
+    "build:customer": "npm run build -w customer-fe",
+    "build:washer": "npm run build -w washer-fe",
+    "build": "npm run build:shared && npm run build:backend && npm run build:customer && npm run build:washer",
+    "lint": "npm run lint --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
