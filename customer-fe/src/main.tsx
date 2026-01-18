@@ -1,29 +1,19 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import { ClerkProvider } from '@clerk/clerk-react'
-import { ApolloProvider } from '@apollo/client'
-import { BrowserRouter } from 'react-router-dom'
-import { ThemeProvider } from './hooks/useTheme'
-import { apolloClient } from './lib/apollo'
-import './index.css'
-import App from './App'
-
-const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
-
-if (!PUBLISHABLE_KEY) {
-  throw new Error('Missing Clerk Publishable Key')
-}
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import './index.css';
+import ApolloProvider from './context/ApolloProvider.tsx';
+import ClerkProvider from './context/ClerkProvider.tsx';
+import RouterProvider from './context/RouterProvider.tsx';
+import { ThemeProvider } from './context/ThemeProvider.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
-      <ThemeProvider>
-        <ApolloProvider client={apolloClient}>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </ApolloProvider>
-      </ThemeProvider>
+    <ClerkProvider>
+      <ApolloProvider>
+        <ThemeProvider>
+          <RouterProvider />
+        </ThemeProvider>
+      </ApolloProvider>
     </ClerkProvider>
   </StrictMode>,
-)
+);
