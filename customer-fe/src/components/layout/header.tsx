@@ -13,7 +13,7 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/30 bg-background/80 backdrop-blur-xl supports-backdrop-filter:bg-background/60">
-      <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-primary/20 to-transparent" />
+      {/* <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-primary/20 to-transparent" /> */}
 
       <div className="container mx-auto flex h-14 sm:h-16 max-w-6xl items-center justify-between px-3 sm:px-4">
         <div className="flex items-center gap-3">
@@ -37,27 +37,27 @@ export function Header() {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
-                variant="ghost"
+                variant="outline"
                 size="icon"
                 className="h-9 w-9 sm:h-10 sm:w-10 rounded-xl hover:bg-muted/80 transition-colors"
               >
-                {theme === 'light' && <Sun className="h-4 w-4 sm:h-5 sm:w-5" />}
-                {theme === 'dark' && <Moon className="h-4 w-4 sm:h-5 sm:w-5" />}
-                {theme === 'system' && <Monitor className="h-4 w-4 sm:h-5 sm:w-5" />}
+                {theme === 'light' && <Sun className="h-6 w-6 sm:h-5 sm:w-5" />}
+                {theme === 'dark' && <Moon className="h-6 w-6 sm:h-5 sm:w-5" />}
+                {theme === 'system' && <Monitor className="h-6 w-6 sm:h-5 sm:w-5" />}
                 <span className="sr-only">Toggle theme</span>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="min-w-32">
-              <DropdownMenuItem onClick={() => setTheme('light')} className="gap-2 cursor-pointer">
-                <Sun className="h-4 w-4" />
+              <DropdownMenuItem onClick={() => setTheme('light')} className="gap-2">
+                <Sun className="h-6 w-6" />
                 Light
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setTheme('dark')} className="gap-2 cursor-pointer">
-                <Moon className="h-4 w-4" />
+              <DropdownMenuItem onClick={() => setTheme('dark')} className="gap-2">
+                <Moon className="h-6 w-6" />
                 Dark
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setTheme('system')} className="gap-2 cursor-pointer">
-                <Monitor className="h-4 w-4" />
+              <DropdownMenuItem onClick={() => setTheme('system')} className="gap-2">
+                <Monitor className="h-6 w-6" />
                 System
               </DropdownMenuItem>
             </DropdownMenuContent>

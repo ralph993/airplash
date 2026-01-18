@@ -1,3 +1,4 @@
+import { Container } from '@/components/layout/container';
 import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/')({
@@ -5,7 +6,7 @@ export const Route = createFileRoute('/')({
 });
 
 function HomePage() {
-  return <>Home</>;
+  return <Container>Home</Container>;
 }
 
 export default HomePage;
